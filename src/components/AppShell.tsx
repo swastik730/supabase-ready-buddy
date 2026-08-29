@@ -47,9 +47,68 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col">
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur-lg">
-        <div className="flex items-center justify-between px-4 py-3">
+    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col lg:max-w-7xl lg:flex-row lg:gap-6 lg:px-6">
+      {/* Desktop / laptop sidebar — hidden on phones and tablets */}
+      <aside className="hidden lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-60 lg:shrink-0 lg:flex-col lg:gap-1 lg:py-6">
+        <Link to="/" className="mb-4 px-2">
+          <BrandMark />
+        </Link>
+        <nav>
+          <ul className="space-y-1">
+            {NAV.map(({ to, label, icon: Icon }) => {
+              const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
+              return (
+                <li key={to}>
+                  <Link
+                    to={to}
+                    preload="render"
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors",
+                      active
+                        ? "bg-primary-soft text-primary"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                    )}
+                  >
+                    <Icon className="h-[18px] w-[18px] shrink-0" />
+                    <span className="truncate">{label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <div className="mt-auto space-y-1">
+          <Link
+            to="/tutor"
+            preload="render"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <GraduationCap className="h-[18px] w-[18px] shrink-0" />
+            <span className="truncate">AI Tutor</span>
+          </Link>
+          <Link
+            to="/models"
+            preload="render"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <Boxes className="h-[18px] w-[18px] shrink-0" />
+            <span className="truncate">3D Models</span>
+          </Link>
+          <Link
+            to="/subscribe"
+            preload="render"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-hero-amber transition-colors hover:bg-muted"
+          >
+            <Sparkles className="h-[18px] w-[18px] shrink-0" />
+            <span className="truncate">Premium Plans</span>
+          </Link>
+        </div>
+      </aside>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur-lg lg:border-b-0 lg:bg-transparent lg:backdrop-blur-none">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 lg:px-0 lg:py-6">
+
           {title ? (
             <h1 className="text-lg font-bold tracking-tight">{title}</h1>
           ) : (
