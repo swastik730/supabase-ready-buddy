@@ -13,7 +13,11 @@ import { useSession } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { formatPrice, usePremium } from "@/lib/subscription";
 
-type SuccessSearch = { order?: string; payment?: string; plan?: string };
+type SuccessSearch = {
+  order: string | undefined;
+  payment: string | undefined;
+  plan: string | undefined;
+};
 
 type OrderRow = {
   id: string;
@@ -22,8 +26,9 @@ type OrderRow = {
   amount_paise: number;
   created_at: string;
   expires_at: string | null;
-  payment_id: string | null;
+  razorpay_payment_id: string | null;
 };
+
 
 export const Route = createFileRoute("/subscribe/success")({
   validateSearch: (search: Record<string, unknown>): SuccessSearch => ({
