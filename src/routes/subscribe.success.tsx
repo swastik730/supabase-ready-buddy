@@ -103,7 +103,7 @@ function SuccessPage() {
     };
   }, [activePlanId]);
 
-  const paymentId = payment ?? row?.payment_id ?? null;
+  const paymentId = payment ?? row?.razorpay_payment_id ?? null;
   const expiresAt = row?.expires_at ?? entitlement?.expires_at ?? null;
 
   async function copyReceipt() {
