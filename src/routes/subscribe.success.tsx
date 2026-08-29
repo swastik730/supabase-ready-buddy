@@ -71,12 +71,13 @@ function SuccessPage() {
     let active = true;
     const query = supabase
       .from("subscriptions")
-      .select("id,plan_id,status,amount_paise,created_at,expires_at,payment_id")
+      .select("id,plan_id,status,amount_paise,created_at,expires_at,razorpay_payment_id")
       .order("created_at", { ascending: false })
       .limit(1);
-    void (order ? query.eq("order_id", order) : query).then(({ data }) => {
+    void (order ? query.eq("razorpay_order_id", order) : query).then(({ data }) => {
       if (active) setRow(((data ?? [])[0] as OrderRow | undefined) ?? null);
     });
+
     return () => {
       active = false;
     };
