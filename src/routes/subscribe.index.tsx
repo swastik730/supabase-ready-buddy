@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { BadgeCheck, Check, Crown, Loader2, ShieldCheck, Sparkles } from "lucide-react";
@@ -79,6 +79,7 @@ function SubscribePage() {
       active = false;
     };
   }, [user, entitlement]);
+  const navigate = useNavigate();
   const start = useServerFn(startCheckout);
   const confirm = useServerFn(confirmCheckout);
   const [busy, setBusy] = useState<string | null>(null);
