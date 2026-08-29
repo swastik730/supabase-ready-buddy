@@ -138,6 +138,15 @@ function SubscribePage() {
             });
             setMessage("Payment successful — your plan is active!");
             refresh();
+            void navigate({
+              to: "/subscribe/success",
+              search: {
+                order: response.razorpay_order_id,
+                payment: response.razorpay_payment_id,
+                plan: planId,
+              },
+            });
+
           } catch (e) {
             setError(e instanceof Error ? e.message : "Payment verification failed.");
           } finally {
