@@ -197,12 +197,11 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
         <OfflineBar />
       </header>
 
-      <main className="flex-1 px-4 pb-28 pt-4">{children}</main>
-
+      <main className="flex-1 px-4 pb-28 pt-4 lg:px-0 lg:pb-12">{children}</main>
 
       <AdInterstitial />
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-2xl border-t border-border/70 bg-card/95 shadow-[var(--shadow-float)] backdrop-blur-lg">
+      <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-2xl border-t border-border/70 bg-card/95 shadow-[var(--shadow-float)] backdrop-blur-lg lg:hidden">
         <AdBanner />
 
         <ul className="grid grid-cols-6">
@@ -233,6 +232,12 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
           })}
         </ul>
       </nav>
+
+      <div className="hidden lg:block">
+        <AdBanner />
+      </div>
+      </div>
     </div>
+
   );
 }
