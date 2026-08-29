@@ -110,13 +110,14 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
         <div className="flex items-center justify-between gap-3 px-4 py-3 lg:px-0 lg:py-6">
 
           {title ? (
-            <h1 className="text-lg font-bold tracking-tight">{title}</h1>
+            <h1 className="min-w-0 truncate text-lg font-bold tracking-tight lg:text-2xl">{title}</h1>
           ) : (
-            <Link to="/">
+            <Link to="/" className="min-w-0 lg:invisible">
               <BrandMark />
             </Link>
           )}
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
+
             <span
               title={user ? (sync === "syncing" ? "Syncing…" : sync === "error" ? "Sync failed" : "Synced to cloud") : "Not signed in — progress is on this device"}
               className="grid h-9 w-9 place-items-center rounded-full text-muted-foreground"
