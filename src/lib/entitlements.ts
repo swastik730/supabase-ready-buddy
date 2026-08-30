@@ -86,12 +86,39 @@ export type FeatureAccess = {
   requiredPlan: string;
 };
 
+/**
+ * Words that appear on the plan cards for each premium feature.
+ * A student gets EXACTLY what their purchased plan advertises — nothing more,
+ * nothing less. If a plan line does not mention the feature, it stays locked.
+ */
+const FEATURE_MATCHERS: Record<string, RegExp[]> = {
+  models: [/3d/i, /model/i, /concept video/i],
+  tutor: [/ai\s*(doubt)?\s*tutor/i, /doubt[- ]solv/i],
+  support: [/priority support/i],
+  adfree: [/ad[- ]?free/i, /no ads/i],
+};
+
+/** Does this plan's written feature list include the given feature? */
+export function planIncludesFeature(features: string[], key: string, tier?: string | null): boolean {
+  const matchers = FEATURE_MATCHERS[key];
+  if (!matchers) return true; // unknown key → don't block by mistake
+  if (features.some((f) => matchers.some((re) => re.test(f)))) return true;
+  // "Everything in Yearly" style lines inherit every pro-tier feature.
+  const inherits = features.some((f) => /everything in/i.test(f));
+  if (inherits && PREMIUM_FEATURES[key]?.tier === "pro") return true;
+  // Empty/unfilled feature list → fall back to the plan tier so nothing breaks.
+  if (features.length === 0) return PREMIUM_FEATURES[key]?.tier === "max" ? tier === "max" : true;
+  return false;
+}
+
 /** Can the signed-in student actually USE this premium feature right now? */
 export function useFeatureAccess(key: keyof typeof PREMIUM_FEATURES | string): FeatureAccess {
-  const { subscriptionsEnabled, isPremium, isMax, ready } = usePremium();
+  const { subscriptionsEnabled, entitlement, planFeatures, ready } = usePremium();
   const feature = PREMIUM_FEATURES[key];
   const tier = feature?.tier ?? "pro";
-  const allowed = !subscriptionsEnabled || (tier === "max" ? isMax : isPremium);
+  const allowed =
+    !subscriptionsEnabled ||
+    (!!entitlement && planIncludesFeature(planFeatures, key, entitlement.tier));
 
   return {
     ready,
@@ -101,3 +128,4 @@ export function useFeatureAccess(key: keyof typeof PREMIUM_FEATURES | string): F
     requiredPlan: tier === "max" ? "Max Pro" : "any premium",
   };
 }
+

@@ -11,6 +11,7 @@ import { PageHero } from "@/components/PageHero";
 import heroProfile from "@/assets/hero-profile.webp";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { usePremium } from "@/lib/subscription";
+import { SubscriptionCard } from "@/components/SubscriptionCard";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -322,6 +323,7 @@ function Profile() {
           </span>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
         </Link>
+
 
 
         {isOwner && (
