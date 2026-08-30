@@ -325,6 +325,7 @@ function Profile() {
         </Link>
 
 
+
         {isOwner && (
           <Link to="/owner" className="flex items-center gap-3 px-5 py-4">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">

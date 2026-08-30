@@ -44,6 +44,7 @@ import { Route as OwnerRolesRouteImport } from './routes/owner.roles'
 import { Route as OwnerSupportRouteImport } from './routes/owner.support'
 import { Route as QuizSubjectIdRouteImport } from './routes/quiz.$subjectId'
 import { Route as SubscribeIndexRouteImport } from './routes/subscribe.index'
+import { Route as SubscribeFailedRouteImport } from './routes/subscribe.failed'
 import { Route as SubscribeSuccessRouteImport } from './routes/subscribe.success'
 import { Route as TestsIndexRouteImport } from './routes/tests.index'
 import { Route as TestsRunRouteImport } from './routes/tests.run'
@@ -224,6 +225,11 @@ const SubscribeIndexRoute = SubscribeIndexRouteImport.update({
   path: '/subscribe/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubscribeFailedRoute = SubscribeFailedRouteImport.update({
+  id: '/subscribe/failed',
+  path: '/subscribe/failed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SubscribeSuccessRoute = SubscribeSuccessRouteImport.update({
   id: '/subscribe/success',
   path: '/subscribe/success',
@@ -279,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/owner/roles': typeof OwnerRolesRoute
   '/owner/support': typeof OwnerSupportRoute
   '/quiz/$subjectId': typeof QuizSubjectIdRoute
+  '/subscribe/failed': typeof SubscribeFailedRoute
   '/subscribe/success': typeof SubscribeSuccessRoute
   '/tests/run': typeof TestsRunRoute
   '/learn/': typeof LearnIndexRoute
@@ -319,6 +326,7 @@ export interface FileRoutesByTo {
   '/owner/roles': typeof OwnerRolesRoute
   '/owner/support': typeof OwnerSupportRoute
   '/quiz/$subjectId': typeof QuizSubjectIdRoute
+  '/subscribe/failed': typeof SubscribeFailedRoute
   '/subscribe/success': typeof SubscribeSuccessRoute
   '/tests/run': typeof TestsRunRoute
   '/learn': typeof LearnIndexRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/owner/roles': typeof OwnerRolesRoute
   '/owner/support': typeof OwnerSupportRoute
   '/quiz/$subjectId': typeof QuizSubjectIdRoute
+  '/subscribe/failed': typeof SubscribeFailedRoute
   '/subscribe/success': typeof SubscribeSuccessRoute
   '/tests/run': typeof TestsRunRoute
   '/learn/': typeof LearnIndexRoute
@@ -404,6 +413,7 @@ export interface FileRouteTypes {
     | '/owner/roles'
     | '/owner/support'
     | '/quiz/$subjectId'
+    | '/subscribe/failed'
     | '/subscribe/success'
     | '/tests/run'
     | '/learn/'
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
     | '/owner/roles'
     | '/owner/support'
     | '/quiz/$subjectId'
+    | '/subscribe/failed'
     | '/subscribe/success'
     | '/tests/run'
     | '/learn'
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/owner/roles'
     | '/owner/support'
     | '/quiz/$subjectId'
+    | '/subscribe/failed'
     | '/subscribe/success'
     | '/tests/run'
     | '/learn/'
@@ -515,6 +527,7 @@ export interface RootRouteChildren {
   TutorRoute: typeof TutorRoute
   LearnSubjectIdRoute: typeof LearnSubjectIdRoute
   QuizSubjectIdRoute: typeof QuizSubjectIdRoute
+  SubscribeFailedRoute: typeof SubscribeFailedRoute
   SubscribeSuccessRoute: typeof SubscribeSuccessRoute
   TestsRunRoute: typeof TestsRunRoute
   LearnIndexRoute: typeof LearnIndexRoute
@@ -770,6 +783,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SubscribeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subscribe/failed': {
+      id: '/subscribe/failed'
+      path: '/subscribe/failed'
+      fullPath: '/subscribe/failed'
+      preLoaderRoute: typeof SubscribeFailedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/subscribe/success': {
       id: '/subscribe/success'
       path: '/subscribe/success'
@@ -856,6 +876,7 @@ const rootRouteChildren: RootRouteChildren = {
   TutorRoute: TutorRoute,
   LearnSubjectIdRoute: LearnSubjectIdRoute,
   QuizSubjectIdRoute: QuizSubjectIdRoute,
+  SubscribeFailedRoute: SubscribeFailedRoute,
   SubscribeSuccessRoute: SubscribeSuccessRoute,
   TestsRunRoute: TestsRunRoute,
   LearnIndexRoute: LearnIndexRoute,
