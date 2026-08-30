@@ -36,7 +36,7 @@ export const Route = createFileRoute("/subscribe/failed")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: FailedPage;
+  component: FailedPage,
 });
 
 function FailedPage() {

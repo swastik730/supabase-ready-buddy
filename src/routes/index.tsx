@@ -16,6 +16,7 @@ import {
 import { AppShell } from "@/components/AppShell";
 import { PageHero } from "@/components/PageHero";
 import { SyncPrompt } from "@/components/SyncPrompt";
+import { SubscriptionCard } from "@/components/SubscriptionCard";
 import heroHome from "@/assets/hero-home.webp";
 import { SubjectIcon } from "@/components/SubjectIcon";
 import { useSession } from "@/lib/auth";
@@ -108,6 +109,8 @@ function Home() {
         <StatCard icon={<Trophy className="h-4 w-4 text-reward" />} tint="reward" label="XP Earned" value={`${state.xp}`} />
         <StatCard icon={<Target className="h-4 w-4 text-primary" />} tint="primary" label="Accuracy" value={`${stats.accuracy}%`} />
       </section>
+
+      {user && <SubscriptionCard className="mb-5" />}
 
       <section className="mb-5">
         <div className="mb-3 flex items-baseline justify-between">

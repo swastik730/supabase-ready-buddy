@@ -121,6 +121,10 @@ function SubscribePage() {
           ondismiss: () => {
             setBusy(null);
             setError("Payment cancelled.");
+            void navigate({
+              to: "/subscribe/failed",
+              search: { order: order.orderId, plan: planId, reason: "Payment cancelled before completion." },
+            });
           },
         },
         handler: async (response: {
@@ -149,7 +153,12 @@ function SubscribePage() {
             });
 
           } catch (e) {
-            setError(e instanceof Error ? e.message : "Payment verification failed.");
+            const msg = e instanceof Error ? e.message : "Payment verification failed.";
+            setError(msg);
+            void navigate({
+              to: "/subscribe/failed",
+              search: { order: response.razorpay_order_id, plan: planId, reason: msg },
+            });
           } finally {
             setBusy(null);
           }
